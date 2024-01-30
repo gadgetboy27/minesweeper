@@ -3,44 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Chart</title>
+    <title>Trading Strategy</title>
+
     <!-- Include Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <h1>Trading Strategy Results</h1>
+    <div id="results"></div>
     <canvas id="myChart" width="400" height="200"></canvas>
 
+    <script src="strategy.js"></script>
     <script>
-        // Your historical data here
-        const historicalData = [/* Your data points here */];
-
-        // Calculate risk based on historical data (replace this with your actual calculation)
-        function calculateRisk(data) {
-            return Math.random(); // Replace this with your risk calculation logic
+        // Function to update the chart with historical data
+        function updateChart(data) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map((_, index) => `Day ${index + 1}`),
+                    datasets: [{
+                        label: 'BTC Price',
+                        data: data,
+                        borderColor: 'blue',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                }
+            });
+            // Update the chart with new data
+            updateChart(historicalData);
         }
-
-        // Initialize Chart.js
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: historicalData.map((_, index) => `Day ${index + 1}`),
-                datasets: [{
-                    label: 'BTC Price',
-                    data: historicalData,
-                    borderColor: 'blue',
-                    borderWidth: 1,
-                    fill: false
-                }]
-            }
-        });
-
-        // Calculate risk and execute strategy
-        const currentRisk = calculateRisk(historicalData);
-        console.log(`Current Risk: ${currentRisk}`);
-
-        // Add your trading strategy logic here based on the calculated risk
-        // Example: executeStrategy(currentRisk);
     </script>
 </body>
 </html>
