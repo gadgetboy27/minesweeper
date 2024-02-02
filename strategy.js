@@ -15,7 +15,7 @@ async function calculateRisk() {
         // const realizedValueData = await realizedValueResponse.json();
         // const realizedValue = realizedValueData.value;
         // As of June 2013 cost to mine 1BTC = CapEx + electricity + other OpEx per Bitcoin = $14,300 + $10,200 + $2,000 = $26,500
-        const realizedValue = (26500)
+        const realizedValue = (26500) // fixed price ...will try get api price soon
         // Calculate MVRV Z-score
         const mvrvZScore = (marketCap - realizedValue) / marketCap;
 
@@ -27,7 +27,7 @@ async function calculateRisk() {
         capPrice.textContent = 'Market Cap: ' + marketCap;
         realPrice.textContent = 'Realized Value: ' + realizedValue;
         mvrvzPrice.textContent = 'MVRV Z-score: ' + mvrvZScore;
-        
+
         return mvrvZScore;
     } catch (error) {
         console.error('Error:', error);
