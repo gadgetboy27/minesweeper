@@ -10,30 +10,12 @@
 </head>
 <body>
     <h1>Trading Strategy Results</h1>
-    <div id="results"></div>
+    
+    <p id="marketCap"></p>
+    <p id="realizedValue"></p>
+    <p id="mvrvZScore"></p>
     <canvas id="myChart" width="400" height="200"></canvas>
 
-    <script src="strategy.js"></script>
-    <script>
-        // Function to update the chart with historical data
-        function updateChart(data) {
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.map((_, index) => `Day ${index + 1}`),
-                    datasets: [{
-                        label: 'BTC Price',
-                        data: data,
-                        borderColor: 'blue',
-                        borderWidth: 1,
-                        fill: false
-                    }]
-                }
-            });
-            // Update the chart with new data
-            updateChart(historicalData);
-        }
-    </script>
+    <script type="module" src="strategy.js"></script>
 </body>
 </html>

@@ -1,15 +1,50 @@
 // strategy.js
-
+import axios from 'axios';
 // Import the data fetching function
 const { fetchHistoricalData } = require('./dataFetcher');
+// Example function to calculate MVRV Z-score
+async function calculateRisk() {
+    try {
+        // Obtain market capitalization (replace with actual API endpoint)
+        const marketCapResponse = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+        const marketCap = await marketCapResponse.data.bitcoin.usd;;
+        
+
+        // Obtain realized value (replace with actual API endpoint)
+        // const realizedValueResponse = await fetch('https://api.example.com/realized-value');
+        // const realizedValueData = await realizedValueResponse.json();
+        // const realizedValue = realizedValueData.value;
+        // As of June 2013 cost to mine 1BTC = CapEx + electricity + other OpEx per Bitcoin = $14,300 + $10,200 + $2,000 = $26,500
+        const realizedValue = (26500)
+        // Calculate MVRV Z-score
+        const mvrvZScore = (marketCap - realizedValue) / marketCap;
+
+        // Log the result
+        const capPrice = document.getElementById('marketCap');
+        const realPrice = document.getElementById('realizedValue');
+        const mvrvzPrice = document.getElementById('mvrvZScore:');
+        // Update the content of the HTML elements
+        capPrice.textContent = 'Market Cap: ' + marketCap;
+        realPrice.textContent = 'Realized Value: ' + realizedValue;
+        mvrvzPrice.textContent = 'MVRV Z-score: ' + mvrvZScore;
+        
+        return mvrvZScore;
+    } catch (error) {
+        console.error('Error:', error);
+        return null;
+    }
+}
+
+// Example usage
+// calculateMVRVZScore();
 
 // Sample function to calculate risk based on historical data
-function calculateRisk(data) {
+// function calculateRisk(data) {
     // Your logic to calculate risk here
     // This is a simplified example, and you should replace it with your actual implementation
-    const risk = Math.random(); // Replace this with your risk calculation logic
-    return risk;
-}
+//     const risk = Math.random(); // Replace this with your risk calculation logic
+//     return risk;
+// }
 
 // Sample function to execute the trading strategy based on calculated risk
 function executeStrategy(risk) {
@@ -53,12 +88,30 @@ function executeStrategy(risk) {
     }
 }
 
-
+        // Function to update the chart with historical data
+        function updateChart(data) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map((_, index) => `Day ${index + 1}`),
+                    datasets: [{
+                        label: 'BTC Price',
+                        data: data,
+                        borderColor: 'blue',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                }
+            });
+            // Update the chart with new data
+            updateChart(historicalData);
+        }
 
 // Example usage
 const symbol = 'bitcoin';
 const currency = 'usd';
-const days = 30; // Number of days of historical data
+const days = 3000; // Number of days of historical data
 
 // Fetch historical data
 fetchHistoricalData(symbol, currency, days)
