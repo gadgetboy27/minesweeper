@@ -1,6 +1,31 @@
 {
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "A Cypto Project finding the realized value vs the market value to get a fair value.",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gadgetboy27/minesweeper.git"
+  },
+  "keywords": [
+    "crypto",
+    "fair",
+    "value"
+  ],
+  "author": "Gadgetboy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gadgetboy27/minesweeper/issues"
+  },
+  "homepage": "https://github.com/gadgetboy27/minesweeper#readme",
   "dependencies": {
-    "axios": "^1.6.7",
-    "node-fetch": "^3.3.2"
+    "asciichart": "^1.5.25",
+    "axios": "^1.6.7"
   }
 }
